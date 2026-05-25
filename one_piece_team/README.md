@@ -13,6 +13,26 @@ AI 기반 향수 추천 플랫폼 **FRAGMNT**에서
 
 ---
 
+## 📋 목차
+
+1. [프로젝트 소개](#-프로젝트-소개)
+2. [주요 기여](#-주요-기여)
+3. [Tech Stack](#-tech-stack)
+4. [핵심 기능](#-내가-구현한-핵심-기능)
+   - [AI 추천 엔진 설계](#1-ai-추천-엔진-설계)
+   - [유클리드 거리 기반 추천 시스템](#2-유클리드-거리-기반-추천-시스템)
+   - [정확도 + 다양성 추천 전략](#3-정확도--다양성-추천-전략)
+   - [Retry + Fallback Pipeline](#4-retry--fallback-pipeline)
+   - [유클리드 거리 기반 후보 사전 필터링](#5-유클리드-거리-기반-후보-사전-필터링-pre-filtering)
+   - [Social Share & OG Crawler System](#6-social-share--og-crawler-system)
+5. [문제 해결 경험](#-문제-해결-경험)
+6. [프로젝트를 통해 배운 점](#-프로젝트를-통해-배운-점)
+7. [주요 키워드](#-주요-키워드)
+8. [프로젝트 회고](#-프로젝트-회고)
+9. [프로젝트 구조](#-프로젝트-구조)
+
+---
+
 # 📌 프로젝트 소개
 
 FRAGMNT는 설문, 키워드, 이미지, 챗봇 데이터를 기반으로  
@@ -39,10 +59,9 @@ FRAGMNT는 설문, 키워드, 이미지, 챗봇 데이터를 기반으로
 - AI 추천 시스템 설계 및 구현
 - Gemini API 기반 추천 파이프라인 구축
 - Retry / Fallback 기반 AI 안정성 아키텍처 구현
-- Vector-like Filtering 기반 추천 성능 최적화
+- 유클리드 거리 기반 후보 사전 필터링 구조 설계
 - 유클리드 거리 기반 추천 알고리즘 구현
 - OG(Open Graph) 기반 SNS 공유 시스템 개발
-- Transaction 구조 개선을 통한 동시성 안정화
 - 프론트엔드 및 인프라 협업
 
 ---
@@ -171,28 +190,31 @@ Gemini API를 사용하면서 **외부 서버 상태에 따라 응답 실패 및
 
 # ⚡ 추천 성능 최적화
 
-# 5. Vector-like Filtering
+# 5. 유클리드 거리 기반 후보 사전 필터링 (Pre-filtering)
 
-Gemini AI 응답 속도 개선을 위해  
-사용자 데이터를 수치화 후 상위 후보만 AI에 전달하는 구조를 설계했습니다.
+Gemini AI 입력 전, 유클리드 거리로 유사도 상위 후보군을 먼저 추려  
+AI에 전달하는 데이터를 최소화했습니다.
+
+## 배경
+
+모든 향수 데이터를 AI에 전달하면 불필요한 토큰이 낭비되고,  
+AI 응답 지연 및 Timeout 발생 가능성이 높아졌습니다.
+
+## 구현 방식
+
+1. 전체 향수 DB를 대상으로 유클리드 거리 계산
+2. 거리 기준 상위 N개 후보군 선별
+3. 선별된 후보군만 Gemini AI에 전달하여 최종 추천 생성
+
+```python
+candidates = sorted(scents, key=lambda s: distance(user_vector, s.profile_vector))[:N]
+```
 
 ## 해결한 문제
 
-- AI 응답 지연
-- Timeout 증가
-- 불필요한 토큰 사용
-- API 비용 증가
-
-## 개선 방식
-
-- 사전 유사도 계산
-- 상위 후보군 선별
-- AI 입력 데이터 최소화
-
-## 결과
-
-- 응답 속도 개선
+- AI 응답 지연 (30초 → 10초)
 - Timeout 감소
+- 불필요한 토큰 사용 절감
 - API 비용 최적화
 
 ---
@@ -248,13 +270,13 @@ Gemini AI 응답 생성 과정에서
 
 ## 해결
 
-- Vector-like Filtering 도입
+- 유클리드 거리 기반 후보 사전 필터링 도입
 - 후보군 선별 구조 설계
 - AI 입력 데이터 최소화
 
 ## 결과
 
-- 응답 시간 개선(30초 -> 10초)
+- 응답 시간 개선 (30초 → 10초)
 - Timeout 감소
 
 ---
@@ -307,9 +329,9 @@ Gemini AI 응답 생성 과정에서
 - Recommendation System
 - AI Integration
 - Retry / Fallback Architecture
+- Euclidean Distance Pre-filtering
 - Recommendation Optimization
 - OG Crawler System
-- Transaction Optimization
 - API Stability
 - Backend Architecture
 
