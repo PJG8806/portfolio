@@ -14,6 +14,12 @@
 ![DRF](https://img.shields.io/badge/DRF-A30000?style=flat-square&logo=django&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
 
+**Desktop / MES** &nbsp;
+![C#](https://img.shields.io/badge/C%23-239120?style=flat-square&logo=csharp&logoColor=white)
+![DevExpress](https://img.shields.io/badge/DevExpress-FF7200?style=flat-square&logo=devexpress&logoColor=white)
+
+> 아이앤지코리아 재직 당시 C# / DevExpress 기반 MES 윈도우 애플리케이션 개발 · 유지보수 (5년)
+
 **DB / Cache** &nbsp;
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
