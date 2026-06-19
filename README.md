@@ -28,6 +28,7 @@
 **Infra / AI** &nbsp;
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 ![AWS S3](https://img.shields.io/badge/AWS_S3-569A31?style=flat-square&logo=amazons3&logoColor=white)
+![AWS CloudFront](https://img.shields.io/badge/CloudFront-8C4FFF?style=flat-square&logo=amazonaws&logoColor=white)
 ![Gemini AI](https://img.shields.io/badge/Gemini_AI-4285F4?style=flat-square&logo=google&logoColor=white)
 
 ---
@@ -36,10 +37,10 @@
 
 | # | 프로젝트 | 한 줄 소개 | 기간 | 역할 |
 |---|----------|-----------|------|------|
-| 1 | [FRAGMNT](#1-fragmnt---ai-향수-추천-플랫폼) | AI 기반 개인 맞춤 향수 추천 플랫폼 | 2026.04 ~ 2026.05 | 백엔드 리더 |
-| 2 | [LMS 커뮤니티](#2-lms-커뮤니티---게시글-cud-담당) | Django 기반 LMS 커뮤니티 백엔드 | 2026.03 | 백엔드 (게시글 CUD) |
-| 3 | [사자사자 가계부](#3-사자사자-가계부---금융-교육-가계부-서비스) | 부모-자녀 함께 사용하는 금융 교육 가계부 | 2026.02 | 백엔드 (finance / contents 도메인) |
-| 4 | [J2S2](#4-j2s2---personal-insight--diary-platform) | 일기 · 명언 · 자아성찰 심리 케어 플랫폼 | 2026.01 | 백엔드 (인프라 · 인증 · 스크래핑) |
+| 1 | [FRAGMNT](#1-fragmnt---ai-향수-추천-플랫폼) | AI 기반 개인 맞춤 향수 추천 플랫폼 | 2026.04.02 ~ 2026.05.08 | 백엔드 리더 |
+| 2 | [LMS 커뮤니티](#2-lms-커뮤니티---게시글-cud-담당) | Django 기반 LMS 커뮤니티 백엔드 | 2025.03.05 ~ 2025.03.27 | 백엔드 (게시글 CUD) |
+| 3 | [사자사자 가계부](#3-사자사자-가계부---금융-교육-가계부-서비스) | 부모-자녀 함께 사용하는 금융 교육 가계부 | 2026.02.19 ~ 2026.02.27 | 백엔드 (finance / contents 도메인) |
+| 4 | [J2S2](#4-j2s2---personal-insight--diary-platform) | 일기 · 명언 · 자아성찰 심리 케어 플랫폼 | 2026.01.20 ~ 2026.01.23 | 백엔드 (인프라 · 인증 · 스크래핑) |
 
 ---
 
@@ -60,6 +61,7 @@
 ![Gemini AI](https://img.shields.io/badge/Gemini_AI-4285F4?style=flat-square&logo=google&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 ![AWS S3](https://img.shields.io/badge/AWS_S3-569A31?style=flat-square&logo=amazons3&logoColor=white)
+![AWS CloudFront](https://img.shields.io/badge/CloudFront-8C4FFF?style=flat-square&logo=amazonaws&logoColor=white)
 
 **핵심 기여**
 
@@ -68,6 +70,7 @@
 - **Retry + Fallback 파이프라인**: 외부 AI 서버 장애 시 5초 간격 3회 재시도 → 보조 모델 전환 → 기본 추천 제공의 3단계 구조로 서비스 중단 방지
 - **유클리드 거리 기반 후보 사전 필터링**: AI 입력 전 유사도 상위 후보만 선별해 토큰 사용량과 응답 시간 최적화 (30초 → 10초)
 - **OG 공유 시스템**: Hashids 기반 ID 암호화 + 7일 TTL 만료 관리로 카카오톡/SNS 공유 지원
+- **CloudFront + Presigned URL 이원화 설계**: 향수 이미지는 CloudFront로 Presigned URL 발급 없이 바로 출력, 개인 프로필 이미지는 Presigned URL로 발급하되 DB에는 키 값만 저장
 
 ---
 
